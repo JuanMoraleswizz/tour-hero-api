@@ -25,8 +25,8 @@ public class HeroServiceImpl implements HeroService {
     }
 
     @Override
-    public Integer save(Hero hero) {
-        return heroRepository.save(hero).getId();
+    public Hero save(Hero hero) {
+        return heroRepository.save(hero);
     }
 
     @Override
@@ -42,5 +42,10 @@ public class HeroServiceImpl implements HeroService {
         }catch (Exception ex){
             return 0;
         }
+    }
+
+    @Override
+    public List<Hero> getHeroeByName(String name) {
+        return heroRepository.findByNameLike("%"+name+"%");
     }
 }

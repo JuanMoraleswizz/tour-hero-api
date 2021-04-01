@@ -40,9 +40,23 @@ public class HeroController {
       }
       return  new ResponseEntity<>(hero, HttpStatus.OK);
     }
-    @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> save(@RequestBody Hero hero){
-        Integer resultado = 0;
+    @GetMapping(value = "/buscar/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Hero>> getHeroById(@PathVariable("name") String name){
+        List<Hero> hero = null;
+        System.out.println("buscar "+name);
+        try {
+
+            hero = heroService.getHeroeByName(name);
+            System.out.println(hero.size());
+        }catch (Exception ex){
+            return  new ResponseEntity<>(hero, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return  new ResponseEntity<>(hero, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/crear/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Hero> save(@RequestBody Hero hero){
+        Hero resultado = null;
         try{
             resultado = heroService.save(hero);
         }catch (Exception ex){
@@ -51,7 +65,7 @@ public class HeroController {
         return  new ResponseEntity<>(resultado,HttpStatus.OK);
     }
 
-    @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/actualizar/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> updateHeroe(@RequestBody Hero hero){
         Integer resultado = 0;
         try {
@@ -62,7 +76,7 @@ public class HeroController {
         return new ResponseEntity<>(resultado,HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{id}")
+    @DeleteMapping(value = "/borrar/{id}")
     public ResponseEntity<Integer> deleteHero(@PathVariable("id") Integer id){
         Integer resultado = 0;
         try{

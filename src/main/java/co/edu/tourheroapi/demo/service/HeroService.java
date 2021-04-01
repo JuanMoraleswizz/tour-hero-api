@@ -9,9 +9,11 @@ public interface HeroService {
 
     Hero getHeroeById(Integer id);
 
-    Integer save(Hero hero);
+    Hero save(Hero hero);
 
     Integer update(Hero hero);
 
     Integer delete(Integer id);
+
+    List<Hero> getHeroeByName(String name);
 }
