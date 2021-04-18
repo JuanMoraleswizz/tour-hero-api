@@ -8,6 +8,9 @@ spring:
     username: dxzdjvoeozmtvv
     password: f1572c79b9ff11ac9fc7f2933ccbc32bf59f8ce9153845b4cb243672d804b09c
     driver-class-name: org.postgresql.Driver
+    hikari:
+      idle-timeout: 10000
+      maximum-pool-size: 5
   jpa:
     show-sql: true
     hibernate:
@@ -20,4 +23,29 @@ spring:
   config:
     activate:
       on-profile:
+---
+spring:
+  profiles:
+    active: juan
+  datasource:
+    url: jdbc:postgresql://ec2-54-235-108-217.compute-1.amazonaws.com:5432/deqo83hje8am96
+    username: dxzdjvoeozmtvv
+    password: f1572c79b9ff11ac9fc7f2933ccbc32bf59f8ce9153845b4cb243672d804b09c
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      idle-timeout: 10000
+      maximum-pool-size: 5
+    jpa:
+      show-sql: true
+      hibernate:
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        ddl-auto: update
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQL94Dialect
+    config:
+      activate:
+        on-profile:
+
 
